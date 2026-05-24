@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Run AI Community Moderator
-        uses: benbalter/ai-community-moderator@v1
+        uses: benbalter/ai-community-moderator@main
         with:
           # 使用内置的 GitHub 令牌，无需配置任何外部 Secret
           github-token: ${{ secrets.GITHUB_TOKEN }}

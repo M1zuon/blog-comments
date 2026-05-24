@@ -1,0 +1,31 @@
+name: Giscus AI Moderator
+
+# 1. 极其精准的触发器：只在有人在 Discussions（评论区）发表或修改评论时唤醒 AI
+on:
+  discussion_comment:
+    types: [created, edited]
+
+jobs:
+  ai-moderate:
+    runs-on: ubuntu-latest
+    
+    # 2. 赋予工作流核心权限（必须要写，否则会报错无访问权限）
+    permissions:
+      contents: read     # 读取你仓库的 CODE_OF_CONDUCT.md 行为准则作为审查依据
+      discussions: write # 核心：赋予 AI 发现违规后直接执行折叠/隐藏评论的权力
+      models: read      # 核心：允许白嫖 GitHub Models 官方大模型算力
+
+    steps:
+      - name: Run AI Community Moderator
+        uses: benbalter/ai-community-moderator@v1
+        with:
+          # 使用内置的 GitHub 令牌，无需配置任何外部 Secret
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # 敏感度调节 (1-10)：默认 5 比较均衡
+          # 如果你想严厉一点（有点小水就标记违规），可以改成 4 或 3
+          # 如果你想宽松一点（只要不骂娘都放行），可以改成 6 或 7
+          severity-threshold: 5
+          
+          # 默认使用的模型就是强大的 openai/gpt-4.1
+          model: openai/gpt-4.1

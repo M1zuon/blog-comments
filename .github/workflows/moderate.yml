@@ -25,7 +25,7 @@ jobs:
           # 敏感度调节 (1-10)：默认 5 比较均衡
           # 如果你想严厉一点（有点小水就标记违规），可以改成 4 或 3
           # 如果你想宽松一点（只要不骂娘都放行），可以改成 6 或 7
-          severity-threshold: 5
+          severity-threshold: 3
           
           # 默认使用的模型就是强大的 openai/gpt-4.1
           model: openai/gpt-4.1
